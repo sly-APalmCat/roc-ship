@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ali-security" />
+        <module name="alicommon" />
+        <module name="alidatamodel" />
+        <module name="ship-spring (2) (com.roc)" />
+        <module name="spring-security" />
+        <module name="springcommon" />
+        <module name="springdatamodle" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ali-security" target="1.8" />
+      <module name="alicommon" target="1.8" />
+      <module name="alidatamodel" target="1.8" />
+      <module name="ship-ali" target="1.8" />
+      <module name="ship-spring" target="1.8" />
+      <module name="ship-spring (1) (com.roc)" target="1.8" />
+      <module name="ship-spring (2) (com.roc)" target="1.8" />
+      <module name="spring-security" target="1.8" />
+      <module name="springcommon" target="1.8" />
+      <module name="springdatamodle" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
