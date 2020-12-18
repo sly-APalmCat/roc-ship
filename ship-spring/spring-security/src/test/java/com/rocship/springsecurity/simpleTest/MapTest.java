@@ -7,8 +7,13 @@ package com.rocship.springsecurity.simpleTest;/**
 
 import org.junit.jupiter.api.Test;
 import sun.applet.AppletClassLoader;
+import sun.net.NetworkClient;
+import sun.net.NetworkServer;
 
+import java.io.IOException;
+import java.net.Socket;
 import java.net.URLClassLoader;
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +27,81 @@ import java.util.Map;
  */
 public class MapTest {
 
+
+    @Test
+    public void kkkk(){
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("1",23242);
+        hashMap.put("str",1123242);
+        if(hashMap.containsKey("str")){
+
+        }
+
+
+    }
+
+      @Test
+    public void lp() throws IOException {
+        NetworkClient net = new NetworkClient("localhost",9099);
+
+        new Thread(() ->{
+            try {
+                while (true){
+                    Thread.sleep(100000);
+                    // net.serverOutput.write("我爱你".getBytes());
+                    net.serverOutput.print("哈哈哈哈哈哈！");
+                    net.serverOutput.flush();
+                    if(net.serverOutput == null){
+                        System.out.println("是关闭");
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+        // net.serverOutput.flush();
+        byte[] bytes = new byte[300];
+        while (net.serverIsOpen()){
+            System.out.println("------------------------  agin  -----------------------------");
+            int read = net.serverInput.read(bytes,0,bytes.length) ;
+            if(read >= 0 && read != -1){
+                System.out.println(new String(bytes,"ISO8859_1"));
+                System.out.println(read);
+                //System.out.println(net.serverInput.available());
+            }
+            System.out.println("-----------------------------------------------------");
+        }
+
+
+    }
+
+
+    @Test
+    public void llp(){
+           // NetworkServer.main(null);
+
+            try {
+                //Class<?> aClass = URLClassLoader.getSystemClassLoader().loadClass("sun.net.NetworkServer");
+                Class<?> aClass = Class.forName("com.rocship.springsecurity.simpleTest.Ap");
+                Object o = aClass.newInstance();
+                if(o instanceof NetworkServer){
+                    NetworkServer net = (NetworkServer) o;
+                    net.startServer(9099);
+                }else if(o instanceof Ap){
+                    Ap ap = (Ap) o;
+                    ap.startServer(9099);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            while (true);
+    }
+
+
+    public class AAAPP extends  NetworkServer{
+
+    }
 
     @Test
     public void lll(){
