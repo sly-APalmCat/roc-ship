@@ -11,5 +11,5 @@ spring:
     password: 123123
 
 runtime:
-  datasource: mysqle
+  datasource: mysql
 

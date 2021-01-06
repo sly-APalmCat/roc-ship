@@ -39,4 +39,9 @@ public class ColumnsData {
     private String generationExpression;
     private String srsId;
 
+
+    private String bigAttributeName;
+    private String letterAttributeName;
+    private String attributeType;
+
 }

@@ -5,10 +5,14 @@ package com.rocship.aligenerator.config.dataconfig;/**
  * @version
  */
 
+import com.rocship.aligenerator.dao.MysqlDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+
+import javax.annotation.Resource;
 
 /**
  * ClassName: DataConfigMatching <br/>
@@ -22,13 +26,15 @@ public class DataConfigMatching {
     @Value("${runtime.datasource:mysql}")
     private String dataSourseType;
 
+    @Resource
+    private MysqlDao mysqlDao;
 
     @Bean
     @Primary
     public AbstractDao matchingDao(){
         switch (dataSourseType){
             case "mysql":
-                return null;
+                return mysqlDao;
             case "oracle":
                 return null;
             case "mogonDB":

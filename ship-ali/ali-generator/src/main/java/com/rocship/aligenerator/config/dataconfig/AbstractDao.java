@@ -5,6 +5,9 @@ package com.rocship.aligenerator.config.dataconfig;/**
  * @version
  */
 
+import com.rocship.aligenerator.model.database.ColumnsData;
+import com.rocship.aligenerator.model.database.TablesData;
+
 import java.util.List;
 import java.util.Map;
 
@@ -16,10 +19,25 @@ import java.util.Map;
  */
 public interface AbstractDao {
 
-    List<Map<String, Object>> checkoutList(Map<String, Object> map);
+    /**
+     * 检出列表
+     * @param map
+     * @return
+     */
+    List<TablesData> checkoutList(Map<String, Object> map);
 
-    Map<String, String> checkoutTable(String tableName);
+    /**
+     * 检出表
+     * @param tableName
+     * @return
+     */
+    TablesData checkoutTable(String tableName);
 
-    List<Map<String, String>> checkoutColumns(String tableName);
+    /**
+     * 建出表列
+     * @param tableName
+     * @return
+     */
+    List<ColumnsData> checkoutColumns(String tableName);
 
 }

@@ -38,4 +38,7 @@ public class TablesData {
     private String createOptions;
     private String tableComment;
 
+    private String bigClassName;
+    private String letterClassname;
+    private ColumnsData PK;
 }
