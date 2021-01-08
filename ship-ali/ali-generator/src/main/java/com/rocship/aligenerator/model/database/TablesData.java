@@ -5,7 +5,10 @@ package com.rocship.aligenerator.model.database;/**
  * @version
  */
 
+import com.rocship.aligenerator.config.mybatis.MybatisMappingHandler;
 import lombok.Data;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.ResultType;
 
 /**
  * ClassName: TablesData <br/>
@@ -15,6 +18,7 @@ import lombok.Data;
  */
 @Data
 public class TablesData {
+
 
     private String tableCatalog;
     private String tableSchema;

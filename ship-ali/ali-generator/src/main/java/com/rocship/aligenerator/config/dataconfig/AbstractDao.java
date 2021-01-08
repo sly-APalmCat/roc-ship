@@ -5,8 +5,11 @@ package com.rocship.aligenerator.config.dataconfig;/**
  * @version
  */
 
+import com.rocship.aligenerator.config.mybatis.MybatisMappingHandler;
 import com.rocship.aligenerator.model.database.ColumnsData;
 import com.rocship.aligenerator.model.database.TablesData;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.ResultType;
 
 import java.util.List;
 import java.util.Map;

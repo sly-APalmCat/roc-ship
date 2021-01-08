@@ -4,10 +4,10 @@ $(function () {
         datatype: "json",
         colModel: [			
 #foreach($column in $columns)
-#if($column.columnName == $pk.columnName)
-			{ label: '${column.attrname}', name: '${column.attrname}', index: '${column.columnName}', width: 50, key: true },
+#if($column.bigAttributeName == $pk.bigAttributeName)
+			{ label: '${column.letterAttributeName}', name: '${column.letterAttributeName}', index: '${column.bigAttributeName}', width: 50, key: true },
 #else
-			{ label: '${column.comments}', name: '${column.attrname}', index: '${column.columnName}', width: 80 }#if($velocityCount != $columns.size()), #end
+			{ label: '${column.columnComment}', name: '${column.letterAttributeName}', index: '${column.bigAttributeName}', width: 80 }#if($velocityCount != $columns.size()), #end
 			
 #end			
 #end
@@ -44,7 +44,7 @@ var vm = new Vue({
 	data:{
 		showList: true,
 		title: null,
-		${classname}: {}
+		${letterClassname}: {}
 	},
 	methods: {
 		query: function () {
@@ -53,26 +53,26 @@ var vm = new Vue({
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
-			vm.${classname} = {};
+			vm.${letterClassname} = {};
 		},
 		update: function (event) {
-			var $pk.attrname = getSelectedRow();
-			if($pk.attrname == null){
+			var $pk.letterAttributeName = getSelectedRow();
+			if($pk.letterAttributeName == null){
 				return ;
 			}
 			vm.showList = false;
             vm.title = "修改";
             
-            vm.getInfo(${pk.attrname})
+            vm.getInfo(${pk.letterAttributeName})
 		},
 		saveOrUpdate: function (event) {
 		    $('#btnSaveOrUpdate').button('loading').delay(1000).queue(function() {
-                var url = vm.${classname}.${pk.attrname} == null ? "${moduleName}/${pathName}/save" : "${moduleName}/${pathName}/update";
+                var url = vm.${letterClassname}.${pk.letterAttributeName} == null ? "${moduleName}/${pathName}/save" : "${moduleName}/${pathName}/update";
                 $.ajax({
                     type: "POST",
                     url: baseURL + url,
                     contentType: "application/json",
-                    data: JSON.stringify(vm.${classname}),
+                    data: JSON.stringify(vm.${letterClassname}),
                     success: function(r){
                         if(r.code === 0){
                              layer.msg("操作成功", {icon: 1});
@@ -89,8 +89,8 @@ var vm = new Vue({
 			});
 		},
 		del: function (event) {
-			var ${pk.attrname}s = getSelectedRows();
-			if(${pk.attrname}s == null){
+			var ${pk.letterAttributeName}s = getSelectedRows();
+			if(${pk.letterAttributeName}s == null){
 				return ;
 			}
 			var lock = false;
@@ -103,7 +103,7 @@ var vm = new Vue({
                         type: "POST",
                         url: baseURL + "${moduleName}/${pathName}/delete",
                         contentType: "application/json",
-                        data: JSON.stringify(${pk.attrname}s),
+                        data: JSON.stringify(${pk.letterAttributeName}s),
                         success: function(r){
                             if(r.code == 0){
                                 layer.msg("操作成功", {icon: 1});
@@ -117,9 +117,9 @@ var vm = new Vue({
              }, function(){
              });
 		},
-		getInfo: function(${pk.attrname}){
-			$.get(baseURL + "${moduleName}/${pathName}/info/"+${pk.attrname}, function(r){
-                vm.${classname} = r.${classname};
+		getInfo: function(${pk.letterAttributeName}){
+			$.get(baseURL + "${moduleName}/${pathName}/info/"+${pk.letterAttributeName}, function(r){
+                vm.${letterClassname} = r.${letterClassname};
             });
 		},
 		reload: function (event) {

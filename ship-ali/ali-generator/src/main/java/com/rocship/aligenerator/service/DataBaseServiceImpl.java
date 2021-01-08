@@ -41,7 +41,7 @@ public class DataBaseServiceImpl {
      * @param queryParamsWrapper
      * @return
      */
-    PageUtils checkoutList(QueryParamsWrapper queryParamsWrapper){
+    public PageUtils checkoutList(QueryParamsWrapper queryParamsWrapper){
         Page<Object> page = PageHelper.startPage(queryParamsWrapper.getPage(), queryParamsWrapper.getLimit());
         List<TablesData> tablesData = abstractDao.checkoutList(queryParamsWrapper);
         return new PageUtils(tablesData,page.getTotal(),queryParamsWrapper.getLimit(),queryParamsWrapper.getPage());
@@ -52,7 +52,7 @@ public class DataBaseServiceImpl {
      * @param tableName
      * @return
      */
-    TablesData checkoutTable(String tableName){
+    public TablesData checkoutTable(String tableName){
         return abstractDao.checkoutTable(tableName);
     }
 
@@ -61,7 +61,7 @@ public class DataBaseServiceImpl {
      * @param tableName
      * @return
      */
-    List<ColumnsData> checkoutColumns(String tableName){
+    public List<ColumnsData> checkoutColumns(String tableName){
         return abstractDao.checkoutColumns(tableName);
     }
 

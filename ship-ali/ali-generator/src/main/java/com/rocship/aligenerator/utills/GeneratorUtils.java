@@ -64,7 +64,7 @@ public class GeneratorUtils {
            String bigAttrName = columnToJava(columnsDatum.getColumnName());
            columnsDatum.setBigAttributeName(bigAttrName);
            columnsDatum.setLetterAttributeName(StringUtils.uncapitalize(bigAttrName));
-            String attrType = config.getString(columnsDatum.getColumnType());
+            String attrType = config.getString(columnsDatum.getDataType());
             columnsDatum.setAttributeType(attrType);
             if(!hasBigDecimal && attrType.equals("BigDecimal")){
                 hasBigDecimal = true;
@@ -88,7 +88,7 @@ public class GeneratorUtils {
         map.put("comments",tablesData.getTableComment());
         map.put("pk",tablesData.getPK());
         map.put("bigClassName",tablesData.getBigClassName());
-        map.put("letterClassName",tablesData.getLetterClassname());
+        map.put("letterClassname",tablesData.getLetterClassname());
         map.put("pathName",tablesData.getLetterClassname().toLowerCase());
         map.put("columns",columnsData);
         map.put("hasBigDecimal",hasBigDecimal);
@@ -106,10 +106,10 @@ public class GeneratorUtils {
             StringWriter writer = new StringWriter();
             template.merge(velocityContext,writer);
 
-            String zipEntryName = getFileName(temp,tablesData.getBigClassName(),config.getString("package"),config.getString("moduleName"));
-            ZipEntry zipEntry = new ZipEntry(zipEntryName);
+           // String zipEntryName = getFileName(temp,tablesData.getBigClassName(),config.getString("package"),config.getString("moduleName"));
+           // ZipEntry zipEntry = new ZipEntry(zipEntryName);
             try {
-                zipOutputStream.putNextEntry(zipEntry);
+                zipOutputStream.putNextEntry(new ZipEntry(getFileName(temp,tablesData.getBigClassName(),config.getString("package"),config.getString("moduleName"))));
                 IOUtils.write(writer.toString(),zipOutputStream,"UTF-8");
                 IOUtils.closeQuietly(writer);
                 zipOutputStream.closeEntry();
@@ -138,7 +138,7 @@ public class GeneratorUtils {
 
     public static String tablesDataToJava(String tableName,String tableNamePrefix){
         if(StringUtils.isNotBlank(tableNamePrefix)){
-            tableName = tableNamePrefix.replace(tableNamePrefix, Strings.EMPTY);
+            tableName = tableName.replace(tableNamePrefix, Strings.EMPTY);
         }
         return columnToJava(tableName);
     }

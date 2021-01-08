@@ -13,22 +13,46 @@ package com.alicommon.lettercheck.file.utils.response.statecode;/**
  */
 public enum  AliGeneratorStateCode implements AbstractStateCode{
 
+    /**
+     *
+     */
     GENERATOR_FAIL(1000,"生成失败！- | - ！");
 
+    /**
+     *
+     */
     private long code;
-    private String say;
+    /**
+     *
+     */
+    private String msg;
+
+    /**
+     *
+     */
     private AliGeneratorStateCode(){}
+
+    /**
+     * @param code
+     * @param say
+     */
     private AliGeneratorStateCode(long code,String say){
         this.code = code;
-        this.say = say;
+        this.msg = say;
     }
 
 
+    /**
+     * @return
+     */
     public long getCode() {
         return code;
     }
 
+    /**
+     * @return
+     */
     public String getSay() {
-        return say;
+        return msg;
     }
 }
