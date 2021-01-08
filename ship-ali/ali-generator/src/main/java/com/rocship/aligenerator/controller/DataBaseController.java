@@ -9,17 +9,14 @@ import com.alicommon.lettercheck.file.utils.response.Res;
 import com.rocship.aligenerator.service.DataBaseServiceImpl;
 import com.rocship.aligenerator.utills.PageUtils;
 import com.rocship.aligenerator.utills.QueryParamsWrapper;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
