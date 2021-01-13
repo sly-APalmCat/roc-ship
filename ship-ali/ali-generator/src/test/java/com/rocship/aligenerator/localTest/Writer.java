@@ -12,6 +12,8 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PipedWriter;
 import java.io.StringWriter;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * ClassName: Writer <br/>

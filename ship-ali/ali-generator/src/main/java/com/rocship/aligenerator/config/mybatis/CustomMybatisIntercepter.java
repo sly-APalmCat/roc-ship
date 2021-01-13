@@ -22,7 +22,8 @@ import java.util.Properties;
 
 /**
  * ClassName: CustomMybatisIntercepter <br/>
- * Description: <br/>
+ * Description: 对mybatis返回的结果做统一处理，类似于请求拦截器、过滤器<br/>
+ * @Executor  mybatis中的方法子类实现的公共方法接口
  * date: 2021/1/7 17:14<br/>
  * @author 15438<br />
  */

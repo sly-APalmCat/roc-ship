@@ -30,7 +30,7 @@ public class DataConfigMatching {
     private MysqlDao mysqlDao;
 
     @Bean
-    @Primary
+    @Primary  //todo 此处注解在类上时需要与@component注解组合使用，否则以此方式使用，表示优先第一个加载。
     public AbstractDao matchingDao(){
         switch (dataSourseType){
             case "mysql":

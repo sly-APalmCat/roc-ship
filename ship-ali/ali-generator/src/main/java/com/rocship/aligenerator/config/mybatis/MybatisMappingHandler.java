@@ -9,7 +9,7 @@ import org.apache.ibatis.session.ResultContext;
 import org.apache.ibatis.session.ResultHandler;
 
 /**
- *
+ *针对sql中的某一列做自定义 操作
  * todo 无用
  * ClassName: MybatisMappingHandler <br/>
  * Description: <br/>
