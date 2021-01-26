@@ -1,0 +1,2 @@
+com.rocship.aligenerator.Man
+com.rocship.aligenerator.WoMan
