@@ -8,8 +8,11 @@ package com.rocship.aligenerator.localTest;/**
 import ch.qos.logback.classic.pattern.ThrowableHandlingConverter;
 import com.alicommon.lettercheck.file.utils.response.Res;
 import com.sun.xml.internal.ws.util.CompletedFuture;
+import lombok.Builder;
+import lombok.Data;
 import org.apache.commons.lang.WordUtils;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.BeanUtils;
 import org.springframework.cglib.proxy.Enhancer;
 import sun.misc.Unsafe;
 
@@ -20,10 +23,10 @@ import java.lang.annotation.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutionException;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 
 /**
  * ClassName: Writer <br/>
@@ -35,6 +38,37 @@ import java.util.concurrent.ExecutionException;
 public class Writer<L> {
 
 
+    @Test
+    public void six() {
+
+    }
+
+    @Test
+    public void five(){
+        final ArrayList<AppQ> appQS = new ArrayList<>();
+        AppQ a = AppQ.builder().id(1).name("青菜").money(23.0).build();
+        AppQ b = AppQ.builder().id(1).name("青菜2").money(2.0).build();
+        AppQ c = AppQ.builder().id(1).name("青菜3").money(21.0).build();
+        boolean b1 = appQS.addAll(Arrays.asList(a, b, c));
+        AppQ appQ1 =  AppQ.builder().build();
+        AppQ appQ = appQS.stream().reduce((i, o) -> {
+            BeanUtils.copyProperties(i,appQ1);
+            appQ1.setMoney(i.getMoney() + o.getMoney());
+            return appQ1;
+        }).get();
+        System.out.println(appQ.toString());
+        DoubleSummaryStatistics doubleSummaryStatistics = appQS.stream().flatMapToDouble(i -> DoubleStream.of(i.getMoney())).summaryStatistics();
+        System.out.println(doubleSummaryStatistics.getSum());
+        DoubleStream doubleStream = appQS.stream().flatMapToDouble(i -> DoubleStream.of(i.getMoney()));
+
+
+        Map<Integer, List<AppQ>> collect = appQS.stream().collect(Collectors.groupingBy(o -> o.getId(), Collectors.toList()));
+        collect.forEach((k,v) -> System.out.println(k+"::"+v));
+
+
+        Map<Integer, AppQ> collect1 = appQS.stream().collect(Collectors.toMap(o -> appQS.indexOf(o), p -> p));
+        collect1.forEach((k,v) -> System.out.println(k+"::"+v));
+    }
 
 
 
@@ -155,4 +189,52 @@ public class Writer<L> {
     }
 
 
+}
+@Data
+@Builder
+class AppQ{
+    private Integer id;
+    private String name;
+    private Double money;
+
+}
+
+
+ class CallableThreadTest implements Callable<Integer> {
+    public static void main(String[] args)
+    {
+        CallableThreadTest ctt = new CallableThreadTest();
+        FutureTask<Integer> ft = new FutureTask<>(ctt);
+        for(int i = 0;i < 100;i++)
+        {
+            System.out.println(Thread.currentThread().getName()+" 的循环变量i的值"+i);
+            if(i==20)
+            {
+                new Thread(ft,"有返回值的线程").start();
+            }
+        }
+        try
+        {
+            System.out.println("子线程的返回值："+ft.get());
+
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        } catch (ExecutionException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+    @Override
+    public Integer call() throws Exception
+    {
+        int i = 0;
+        for(;i<100;i++)
+        {
+            System.out.println(Thread.currentThread().getName()+" "+i);
+        }
+        Thread.sleep(20000);
+        return i;
+    }
 }
