@@ -6,7 +6,9 @@ package com.rocship.aligenerator.localTest;/**
  */
 
 import ch.qos.logback.classic.pattern.ThrowableHandlingConverter;
+import com.alibaba.fastjson.JSON;
 import com.alicommon.lettercheck.file.utils.response.Res;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.sun.xml.internal.ws.util.CompletedFuture;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +20,7 @@ import sun.misc.Unsafe;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.StringWriter;
 import java.lang.annotation.*;
 import java.lang.reflect.Field;
@@ -25,6 +28,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 
@@ -37,9 +41,46 @@ import java.util.stream.DoubleStream;
  */
 public class Writer<L> {
 
+    @FunctionalInterface
+    interface SFunction{
+        Object get();
+    }
+    @Data
+    class APO{
+        private int p;
+        private String name;
+    }
+    @FunctionalInterface
+    interface AFunction<T,P> extends Function<T,P>,Serializable {}
+
+    public void cc(SFunction p ){
+        System.out.println(JSON.toJSONString(p.get()));
+    }
+
+    public void pp(L p){
+        if(p instanceof AFunction){
+            AFunction af = (AFunction) p;
+            Class<? extends AFunction> aClass = af.getClass();
+            Field[] fields = aClass.getFields();
+            System.out.println(Arrays.asList(fields));
+        }
+        if(p instanceof String){
+            System.out.println((String)p);
+            return;
+        }
+        throw new RuntimeException("不是String");
+
+    }
+
 
     @Test
     public void six() {
+        AppQ a = AppQ.builder().id(1).name("青菜").money(23.0).build();
+        Writer<AFunction<APO, ?>> aFunctionWriter = new Writer<AFunction<APO, ?>>();
+        APO  apo = new APO();
+        apo.setName("小红");
+        cc(a::getId);
+        aFunctionWriter.pp(APO::getName);
 
     }
 
@@ -116,10 +157,12 @@ public class Writer<L> {
     public static Integer calc(Integer para) {
         return para / 2;
     }
+    public static Integer getPP(){
+        return 34;
+    }
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
         ArrayList<Object> objects = new ArrayList<>();
-
 
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(String.class);

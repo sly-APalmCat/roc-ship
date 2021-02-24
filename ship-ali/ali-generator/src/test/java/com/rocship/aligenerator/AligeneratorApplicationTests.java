@@ -1,7 +1,9 @@
 package com.rocship.aligenerator;
 
+import com.rocship.aligenerator.localTest.autoInjoin.PermissonCheckHodler;
 import org.apache.commons.lang.SystemUtils;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
 
@@ -12,6 +14,20 @@ import java.util.*;
 @SpringBootTest
 class AligeneratorApplicationTests {
 
+    //todo 可以做到自动注入
+@Autowired
+Map<String,PermissonCheckHodler> map = new HashMap<String,PermissonCheckHodler>();
+
+    @Test
+    public void two(){
+        String one = "onePermissonCheckHodler";
+        String two = "twoPermissonCheckHodler";
+        PermissonCheckHodler permissonCheckHodler = map.get(one);
+        PermissonCheckHodler permissonCheckHodler1 = map.get(two);
+        permissonCheckHodler.say();
+        permissonCheckHodler1.say();
+
+    }
 
 
 
@@ -20,6 +36,7 @@ class AligeneratorApplicationTests {
     ///todo 此测试支持独立类对象，以及内部类对象
     @Test
     public void one(){
+
         ServiceLoader<com.rocship.aligenerator.localTest.Po> load = ServiceLoader.load(com.rocship.aligenerator.localTest.Po.class);
         for (com.rocship.aligenerator.localTest.Po po : load) {
             po.say();

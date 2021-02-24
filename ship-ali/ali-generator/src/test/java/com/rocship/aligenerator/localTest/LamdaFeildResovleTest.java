@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
+//import java.lang.invoke.SerializedLambda;
 import com.rocship.aligenerator.localTest.reself.SerializedLambda;
 //import com.rocship.aligenerator.localTest.SerializedLambda;
 import java.lang.ref.WeakReference;
